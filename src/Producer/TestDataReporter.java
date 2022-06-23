@@ -1,9 +1,11 @@
 package Producer;//Copyright (c) Microsoft Corporation. All rights reserved.
 //Licensed under the MIT License.
+
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
+
 import java.sql.Timestamp;
 
 public class TestDataReporter implements Runnable {
@@ -11,7 +13,7 @@ public class TestDataReporter implements Runnable {
     private static final int NUM_MESSAGES = 100;
     private final String TOPIC;
 
-    private Producer<Long, String> producer;
+    private final Producer<Long, String> producer;
 
     public TestDataReporter(final Producer<Long, String> producer, String TOPIC) {
         this.producer = producer;
@@ -20,7 +22,7 @@ public class TestDataReporter implements Runnable {
 
     @Override
     public void run() {
-        for(int i = 0; i < NUM_MESSAGES; i++) {
+        for (int i = 0; i < NUM_MESSAGES; i++) {
             long time = System.currentTimeMillis();
             System.out.println("Test Data #" + i + " from thread #" + Thread.currentThread().getId());
 
@@ -28,7 +30,7 @@ public class TestDataReporter implements Runnable {
             producer.send(record, new Callback() {
                 public void onCompletion(RecordMetadata metadata, Exception exception) {
                     if (exception != null) {
-                        System.out.println(exception);
+                        System.out.println(exception.getMessage());
                         System.exit(1);
                     }
                 }

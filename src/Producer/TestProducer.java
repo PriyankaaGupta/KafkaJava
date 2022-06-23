@@ -48,7 +48,7 @@ public class TestProducer {
     private static Producer<Long, String> createProducer() {
         try{
             Properties properties = new Properties();
-            properties.load(new FileReader("src/Producer/producer.config"));
+            properties.load(new FileReader("src/Producer/producer.txt"));
             properties.put(ProducerConfig.CLIENT_ID_CONFIG, "KafkaExampleProducer");
             properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, LongSerializer.class.getName());
             properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
