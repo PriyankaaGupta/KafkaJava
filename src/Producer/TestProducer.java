@@ -31,6 +31,19 @@ public class TestProducer {
         for (int i = 0; i < NUM_THREADS; i++)
             executorService.execute(new TestDataReporter(producer, TOPIC));
     }
+    public static void start() throws Exception {
+        System.out.println("Hello World!");
+        //Create Kafka Producer
+        final Producer<Long, String> producer = createProducer();
+
+        Thread.sleep(5000);
+
+        final ExecutorService executorService = Executors.newFixedThreadPool(NUM_THREADS);
+
+        //Run NUM_THREADS TestDataReporters
+        for (int i = 0; i < NUM_THREADS; i++)
+            executorService.execute(new TestDataReporter(producer, TOPIC));
+    }
 
     private static Producer<Long, String> createProducer() {
         try{
