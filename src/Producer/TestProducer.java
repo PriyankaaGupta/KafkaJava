@@ -5,6 +5,7 @@ import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.LongSerializer;
 import org.apache.kafka.common.serialization.StringSerializer;
+
 import java.util.Properties;
 import java.io.FileReader;
 import java.util.concurrent.ExecutorService;
@@ -13,7 +14,7 @@ import java.util.concurrent.Executors;
 
 public class TestProducer {
     //Change constant to send messages to the desired topic, for this example we use 'test'
-    private final static String TOPIC = "eventhub-connection-string-nonprod";
+    private final static String TOPIC = "camunda-customer-events";
 
     private final static int NUM_THREADS = 1;
 
@@ -49,9 +50,13 @@ public class TestProducer {
         try{
             Properties properties = new Properties();
             properties.load(new FileReader("src/Producer/producer.txt"));
-            properties.put(ProducerConfig.CLIENT_ID_CONFIG, "KafkaExampleProducer");
+            properties.put(ProducerConfig.CLIENT_ID_CONFIG, "camunda");
+
             properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, LongSerializer.class.getName());
             properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+            System.out.println("Producer key serial: ");
+            System.out.println("Producer with partition "+ properties);
+
             return new KafkaProducer<>(properties);
         } catch (Exception e){
             System.out.println("Failed to create producer with exception: " + e);

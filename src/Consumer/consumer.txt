@@ -1,4 +1,5 @@
 bootstrap.servers=evh-nuuday-payment-gateway-nonprod.servicebus.windows.net:9093
+group.id=$Default
 security.protocol=SASL_SSL
 sasl.mechanism=PLAIN
 sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule required username="$ConnectionString" password="Endpoint=sb://evh-nuuday-payment-gateway-nonprod.servicebus.windows.net/;SharedAccessKeyName=camunda-listen-and-send;SharedAccessKey=9AA3TlFZKLZ5Sp4LJcqzPjPBNNISEUODyZLnamBntNk=;EntityPath=camunda-customer-events";

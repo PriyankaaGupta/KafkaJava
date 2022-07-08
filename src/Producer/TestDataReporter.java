@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 
 public class TestDataReporter implements Runnable {
 
-    private static final int NUM_MESSAGES = 100;
+    private static final int NUM_MESSAGES = 5    ;
     private final String TOPIC;
 
     private final Producer<Long, String> producer;
@@ -27,12 +27,15 @@ public class TestDataReporter implements Runnable {
             System.out.println("Test Data #" + i + " from thread #" + Thread.currentThread().getId());
 
             final ProducerRecord<Long, String> record = new ProducerRecord<Long, String>(TOPIC, time, "Test Data #" + i);
+            System.out.println("Message Sent#" + record);
             producer.send(record, new Callback() {
+
                 public void onCompletion(RecordMetadata metadata, Exception exception) {
                     if (exception != null) {
                         System.out.println(exception.getMessage());
                         System.exit(1);
                     }
+
                 }
             });
         }
